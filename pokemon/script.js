@@ -2,7 +2,7 @@ const POKE_BASE = "https://pokeapi.co/api/v2/";
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon";
 let offset = 0;
-const limit = 20;
+const limit = 24;
 
 function init(){
     // loadFirstPoke();
@@ -33,32 +33,18 @@ async function fetchPokemonDetails(url){
 async function displayPokemon(){
     const pokemonList = await fetchPokemon(offset, limit);
     const pokemonContainer = document.getElementById('pokemon-list');
-    pokemonContainer.innerHTML = "";
+ 
 
     for (let i = 0; i < pokemonList.length; i++) {
         const pokemon = pokemonList[i];
         const pokemonDetails = await fetchPokemonDetails(pokemon.url);
-        pokemonContainer.innerHTML += `
-        <div class="card">
-            <div class="headline"><h2 id="nameOfPokemon">${pokemon.name}</h2><span class="indexDisplay">#${i+ 1}</span></div>
-            <img class="alignPokeImg" src="${pokemonDetails.sprites.front_default}" alt="">
-            <div class="footerOfCard"><div>2345</div><div>593478</div></div>
-        </div>
-        `
-      
+        pokemonContainer.innerHTML += generateCardHTML(pokemon, i + offset, pokemonDetails);
     }
 
 }
 
-
-
-
-
-
 async function fetchData(){
-
     try{
-
         const pokemonIndex = document.getElementById("pokemonIndex").value;
         const response = await fetch(`${ONLOAD_POKE}${pokemonIndex}`);
 
@@ -67,15 +53,19 @@ async function fetchData(){
         }
 
         const data = await response.json();
-        const pokemonSprite = data.sprites.front_default;
-        const imgElement = document.getElementById("poke-sprite");
-
-        imgElement.src = pokemonSprite;
-        imgElement.style.display = "block";
+        getPokeImg(data);
     }
     catch(error){
         console.error(error);
     }
+}
+
+
+function getPokeImg(data){
+    const pokemonSprite = data.sprites.front_default;
+    const imgElement = document.getElementById("poke-sprite");
+    imgElement.src = pokemonSprite;
+    imgElement.style.display = "block";
 }
 
 // async function loadFirstPoke(){

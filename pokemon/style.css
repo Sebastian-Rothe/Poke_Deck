@@ -1,6 +1,29 @@
 body{
     margin: 0;
-    padding: 30px;
+   
+}
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#load-more{
+    border: none;
+    background: none;
+}
+.navbar{
+    width: 100%;
+    height: 100px;
+    background-color: rgb(181, 181, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+#load-more:hover{
+    cursor: pointer;
+    transform: scale(1.2);
 }
 
 #pokemon-list{
@@ -9,7 +32,7 @@ body{
     justify-content: center;
     gap: 20px;
     padding: 20px;
-    max-width: 1200px;
+    /* max-width: 1200px; */
 }
 .card{
     background-color: rgb(109, 177, 236);
@@ -21,6 +44,7 @@ body{
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    flex: 1;
 
 }
 .headline{
