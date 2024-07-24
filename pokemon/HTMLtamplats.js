@@ -17,8 +17,10 @@
 function generateCardHTML(pokemonDetails) {
     const types = pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ');
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card pokemon-card';
 
+    setPokemonTypeClass(card, pokemonDetails);
+    
     card.innerHTML = `
         <div class="headline">
             <h2 id="nameOfPokemon">${pokemonDetails.name}</h2>
@@ -31,4 +33,9 @@ function generateCardHTML(pokemonDetails) {
     `;
 
     return card;
+}
+
+function setPokemonTypeClass(cardElement, pokemonDetails) {
+    const typeClass = `${pokemonDetails.types[0].type.name.toLowerCase()}`;
+    cardElement.classList.add(typeClass);
 }
