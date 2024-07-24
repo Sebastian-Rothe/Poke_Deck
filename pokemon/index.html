@@ -11,17 +11,38 @@
 
 <div class="content">
 <nav class="navbar">
-    <div class="logo">logo</div>
-    <div class="search">
-        <input type="text">
-        <button>Search</button>
+    <div class="logo align-head">logo</div>
+    <div class="search align-head">
+        <input type="text" id="search" placeholder="Search for Pokémon...">
+        <button id="searchButton" onclick="searchPokemon()">Search</button>
     </div>
 </nav>
     <div id="pokemon-list"></div>
     <button id="load-more">load more</button>
-
 </div>
 
+<!-- try -->
+<div id="pokemon-popup" class="pokemon-popup">
+    <div class="pokemon-popup-content">
+        <span id="popup-close" class="pokemon-popup-close">&times;</span>
+        <div class="pokemon-card-popup">
+            <div class="pokemon-card-header">
+                <h2 id="popup-name"></h2>
+                <img id="popup-image" src="" alt="Pokemon Image">
+            </div>
+            <div class="pokemon-card-body">
+                <p id="popup-types" class="pokemon-card-types"></p>
+                <p id="popup-height"></p>
+                <p id="popup-weight"></p>
+                <p id="popup-abilities"></p>
+                <p id="popup-stats"></p>
+                <p id="popup-evolves"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- try end -->
 
 
 

@@ -8,10 +8,6 @@ body{
     align-items: center;
     flex-direction: column;
 }
-#load-more{
-    border: none;
-    background: none;
-}
 .navbar{
     width: 100%;
     height: 100px;
@@ -19,8 +15,20 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
 }
+.align-head{
+    padding: 0 24px;
+}
+
+/* load button */
+#load-more{
+    border: none;
+    background: none;
+    margin: 24px;
+    font-size: large;
+    font-weight: bold;
+}
+/*  */
 #load-more:hover{
     cursor: pointer;
     transform: scale(1.2);
@@ -34,6 +42,7 @@ body{
     padding: 20px;
     /* max-width: 1200px; */
 }
+/* cards */
 .card{
     background-color: rgb(109, 177, 236);
     display: flex;
@@ -81,4 +90,85 @@ body{
     max-height: 250px;
     min-height: 200px;
     
+}
+
+/* try */
+/* Pop-up Styles */
+/* Popup Overlay */
+.pokemon-popup {
+    display: none; /* Standardmäßig versteckt */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Dunkler Hintergrund */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Über anderen Inhalten */
+}
+
+/* Popup Content Container */
+.pokemon-popup-content {
+    background: #fff;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    position: relative;
+}
+
+/* Close Button */
+.pokemon-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Popup Card Styles */
+.pokemon-card-popup {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fefefe;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header for Popup Card */
+.pokemon-card-header {
+    background: #f8f8f8;
+    text-align: center;
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+}
+
+.pokemon-card-header h2 {
+    font-size: 26px;
+    margin: 0;
+}
+
+.pokemon-card-header img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover; /* Maintain aspect ratio */
+}
+
+/* Body for Popup Card */
+.pokemon-card-body {
+    padding: 20px;
+    font-size: 16px;
+}
+
+.pokemon-card-body p {
+    margin: 8px 0;
+}
+
+/* Types Specific Styling */
+.pokemon-card-types {
+    font-weight: bold;
+    color: #6a0dad; /* An example color */
 }
