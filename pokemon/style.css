@@ -1,181 +1,152 @@
-body{
-    margin: 0;
-   
-}
-.content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.navbar{
-    width: 100%;
-    height: 100px;
-    background-color: rgb(181, 181, 255);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.align-head{
-    padding: 0 24px;
-}
+/* @font-face {
+    font-family: 'Press Start 2P';
+    src: url('fonts/PressStart2P-Regular.woff2') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
 
-/* load button */
-#load-more{
-    border: none;
-    background: none;
-    margin: 24px;
-    font-size: large;
-    font-weight: bold;
+body {
+  max-width: 1920px;
 }
-/*  */
-#load-more:hover{
-    cursor: pointer;
-    transform: scale(1.2);
+button {
+  cursor: pointer;
 }
-
-#pokemon-list{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    /* max-width: 1200px; */
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
 }
-/* cards */
-.card{
-    width: 220px;
-    height: 240px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #3d7dca;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.pokemon-card img {
-    width: 140px; /* Neue Größe des Bildes */
-    height: 140px; /* Neue Größe des Bildes */
-    object-fit: cover; /* Bild soll den Container ausfüllen */
-    
+.align-head {
+  padding: 0 24px;
 }
-.headline{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0px;
-    background: rgba(255, 255, 255, 0.2);
-    color: rgb(0, 0, 0); 
+#load-more {
+  border: none;
+  background: none;
+  margin: 24px;
+  font-size: large;
+  font-weight: bold;
 }
-.card:hover{
-    cursor: pointer;
-    transform: scale(1.05); /* Vergrößerungseffekt beim Hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Intensiverer Schatten */
+#load-more:hover {
+  transform: scale(1.2);
 }
-.headline h2, span{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    color: black;
-    padding: 4px 8px;
-    margin: 0;
+#pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
-.footerOfCard{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 12px 0px;
-    width: 100%;
+.card {
+  width: 220px;
+  height: 240px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-
-.alignPokeImg{
-   
-    max-height: 250px;
-    min-height: 200px;
-    
+.pokemon-card .pokeImg {
+  width: 140px; 
+  height: 140px; 
+  object-fit: cover; 
 }
-
-/* try */
-/* Pop-up Styles */
-/* Popup Overlay */
-.pokemon-popup {
-    display: none; /* Standardmäßig versteckt */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dunkler Hintergrund */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Über anderen Inhalten */
+.headline {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(0, 0, 0);
 }
-
-/* Popup Content Container */
-.pokemon-popup-content {
-    background: #fff;
-    border-radius: 12px;
-    width: 400px;
-    max-width: 90%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    padding: 20px;
-    position: relative;
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.05); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
 }
-
-/* Close Button */
-.pokemon-popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 22px;
-    color: #333;
+.headline h2,
+span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  color: black;
+  padding: 4px 8px;
+  margin: 0;
 }
-
-/* Popup Card Styles */
-.pokemon-card-popup {
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fefefe;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.footerOfCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  height: 100px;
+  width: 100%;
 }
-
-/* Header for Popup Card */
-.pokemon-card-header {
-    background: #f8f8f8;
-    text-align: center;
-    padding: 15px;
-    border-bottom: 2px solid #ddd;
+.alignPokeImg {
+  max-height: 250px;
+  min-height: 200px;
 }
-
-.pokemon-card-header h2 {
-    font-size: 26px;
-    margin: 0;
+/* bg animation */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    45deg,
+    #a8a77a,
+    #ee8130,
+    #6390f0,
+    #f7d02c,
+    #7ac74c,
+    #96d9d6,
+    #c22e28,
+    #a33faa,
+    #e2bf65,
+    #a98ff3,
+    #f95587,
+    #a6b91a,
+    #b6a136,
+    #735797,
+    #6f35fc,
+    #705746,
+    #b7b7ce,
+    #d685ad
+  );
+  background-size: 1200% 1200%;
+  animation: gradientAnimation 100s ease infinite;
 }
-
-.pokemon-card-header img {
-    width: 130px;
-    height: 130px;
-    object-fit: cover; /* Maintain aspect ratio */
-}
-
-/* Body for Popup Card */
-.pokemon-card-body {
-    padding: 20px;
-    font-size: 16px;
-}
-
-.pokemon-card-body p {
-    margin: 8px 0;
-}
-
-/* Types Specific Styling */
-.pokemon-card-types {
-    font-weight: bold;
-    color: #6a0dad; /* An example color */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }

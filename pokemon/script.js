@@ -7,7 +7,6 @@ const searchButton = document.getElementById('search-button');
 function init(){
     fetchPokemon(offset, limit);
     displayPokemon();
-    // setupSearch();
 }
 
 async function fetchPokemon(offset, limit){
@@ -53,18 +52,11 @@ async function fetchData(){
         }
 
         const data = await response.json();
-        getPokeImg(data);
+        
     }
     catch(error){
         console.error(error);
     }
-}
-
-function getPokeImg(data){
-    const pokemonSprite = data.sprites.front_default;
-    const imgElement = document.getElementById("poke-sprite");
-    imgElement.src = pokemonSprite;
-    imgElement.style.display = "block";
 }
 
 // Event-Listener für den "Weitere laden" Button
@@ -98,6 +90,7 @@ function displaySearchResults(pokemonList) {
             const card = generateCardHTML(pokemon);
             pokemonContainer.appendChild(card);
         }
+        setupCardClickListeners();
 }
 
 document.getElementById('search').addEventListener('keydown', function(event) {
@@ -107,36 +100,7 @@ document.getElementById('search').addEventListener('keydown', function(event) {
     }
 });
 
-// try
 
-// Function to open the pop-up and display detailed info
-function openPopup(pokemonDetails) {
-    const popup = document.getElementById('pokemon-popup');
-    document.getElementById('popup-name').textContent = pokemonDetails.name;
-    document.getElementById('popup-image').src = pokemonDetails.sprites.front_default;
-    document.getElementById('popup-types').textContent = `Types: ${pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')}`;
-    document.getElementById('popup-height').textContent = `Height: ${pokemonDetails.height / 10} m`; // Convert to meters
-    document.getElementById('popup-weight').textContent = `Weight: ${pokemonDetails.weight / 10} kg`; // Convert to kilograms
-    document.getElementById('popup-abilities').textContent = `Abilities: ${pokemonDetails.abilities.map(ability => ability.ability.name).join(', ')}`;
-
-    // Stats
-    const stats = pokemonDetails.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`).join(', ');
-    document.getElementById('popup-stats').textContent = `Stats: ${stats}`;
-
-    // Evolution (Example, make sure to fetch evolution details if needed)
-    // document.getElementById('popup-evolves').textContent = `Evolves to: ${pokemonDetails.evolves_to.map(evo => evo.name).join(', ')}`;
-
-    popup.style.display = 'flex'; // Show the pop-up
-}
-
-
-// Function to close the pop-up
-function closePopup() {
-    document.getElementById('pokemon-popup').style.display = 'none';
-}
-
-// Add event listener for closing the pop-up
-document.getElementById('popup-close').addEventListener('click', closePopup);
 
 // Function to handle card clicks
 function setupCardClickListeners() {
@@ -150,3 +114,144 @@ function setupCardClickListeners() {
         });
     });
 }
+
+function openPopup(pokemonDetails) {
+    const popup = document.getElementById('pokemon-popup');
+    const cardPopUp = document.getElementById('pokemon-card-popup');
+    cardPopUp.innerHTML = '';
+    cardPopUp.innerHTML += generatePopUpHeadHTML(pokemonDetails);
+
+    resetTypeClasses(cardPopUp);
+    setPokemonTypeClass(cardPopUp, pokemonDetails);
+
+    document.getElementById('about').addEventListener('click', () => showAbout(pokemonDetails));
+    document.getElementById('stats').addEventListener('click', () => showStats(pokemonDetails));
+    document.getElementById('evolution').addEventListener('click', () => showEvolution(pokemonDetails));
+    document.getElementById('more-info').addEventListener('click', () => showMoreInfo(pokemonDetails));
+    
+    popup.style.display = 'flex'; // Show the pop-up
+    popup.addEventListener('click', function(event) {
+        if (event.target === popup) { // Überprüfen, ob der Klick auf das Hintergrund-Div (nicht die Karte) war
+            popup.style.display = 'none'; // Pop-up schließen
+        }
+    });
+    showAbout(pokemonDetails);
+}
+
+function generatePopUpHeadHTML(pokemonDetails){
+    return`
+        <div class="pokemon-card-header">
+            <div class="popup-header">
+                <h2 id="popup-name">${pokemonDetails.name}</h2>
+            </div>
+            <img id="popup-image" src="${pokemonDetails.sprites.other['official-artwork'].front_default}" alt="${pokemonDetails.name}" alt="Pokemon Image">
+            <div id="select-section">
+                <button id="about">About</button>
+                <button id="stats">Stats</button>
+                <button id="evolution">EVO</button>
+                <button id="more-info">More Info</button>
+            </div>
+        </div>
+        <div id="pokemon-card-body" class="pokemon-card-body"></div>`
+}
+            
+            // <span id="popup-id">#${pokemonDetails.id}</span>
+function showAbout(pokemonDetails) {
+    const cardBody = document.getElementById('pokemon-card-body');
+    cardBody.innerHTML = `
+        <div class="about-section">
+            <h3>About ${pokemonDetails.name}</h3>
+            <p>Type: ${pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')}</p>
+            <p>Abilities: ${pokemonDetails.abilities.map(abilityInfo => abilityInfo.ability.name).join(', ')}</p>
+            <p>Weight: ${pokemonDetails.weight / 10} kg</p>
+            <p>Height: ${pokemonDetails.height / 10} m</p>
+            <p>Base Experience: ${pokemonDetails.base_experience}</p>
+        </div>`;
+}
+
+function showStats(pokemonDetails) {
+    const cardBody = document.getElementById('pokemon-card-body');
+    cardBody.innerHTML = `
+        <div class="stats-section">
+            <h3>Stats of ${pokemonDetails.name}</h3>
+            <ul>
+                ${pokemonDetails.stats.map(statInfo => `
+                    <li>${statInfo.stat.name}: ${statInfo.base_stat}</li>
+                `).join('')}
+            </ul>
+        </div>`;
+}
+
+async function showEvolution(pokemonDetails) {
+    const cardBody = document.getElementById('pokemon-card-body');
+    const evolutionData = await getEvolutionData(pokemonDetails.species.url);
+
+    cardBody.innerHTML = `
+        <div class="evolution-section">
+            <h3>Evolution Chain of ${pokemonDetails.name}</h3>
+            ${evolutionData ? evolutionData : 'No evolution data available'}
+        </div>`;
+}
+
+async function getEvolutionData(speciesUrl) {
+    try {
+        const speciesResponse = await fetch(speciesUrl);
+        const speciesData = await speciesResponse.json();
+        const evolutionChainUrl = speciesData.evolution_chain.url;
+
+        const evolutionResponse = await fetch(evolutionChainUrl);
+        const evolutionData = await evolutionResponse.json();
+
+        return parseEvolutionChain(evolutionData.chain);
+    } catch (error) {
+        console.error('Error fetching evolution data:', error);
+        return null;
+    }
+}
+
+function parseEvolutionChain(chain) {
+    let evolutionChain = '';
+    let currentChain = chain;
+
+    while (currentChain) {
+        evolutionChain += `<p>${currentChain.species.name}</p>`;
+        if (currentChain.evolves_to.length > 0) {
+            evolutionChain += '<p> evolves to </p>';
+            currentChain = currentChain.evolves_to[0];
+        } else {
+            currentChain = null;
+        }
+    }
+
+    return evolutionChain;
+}
+
+function showMoreInfo(pokemonDetails) {
+    const cardBody = document.getElementById('pokemon-card-body');
+
+    // Falls verfügbar, extrahiere die Daten
+    const habitat = pokemonDetails.habitat ? pokemonDetails.habitat.name : "N/A";
+    const forms = pokemonDetails.forms.map(form => form.name).join(', ');
+    const moves = pokemonDetails.moves.map(move => move.move.name).join(', ');
+
+    cardBody.innerHTML = `
+        <div class="more-info-section">
+            <h3>More Info about ${pokemonDetails.name}</h3>
+            <p>Habitat: ${habitat}</p>
+            <p>Forms: ${forms}</p>
+            <p>Moves: ${moves}</p>
+        </div>
+    `;
+}
+
+function resetTypeClasses(cardElement) {
+    const typeClasses = [
+        'normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 
+        'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 
+        'steel', 'fairy'
+    ];
+    typeClasses.forEach(typeClass => cardElement.classList.remove(typeClass));
+}
+        
+        
+        // <p>Egg Groups: ${pokemonDetails.egg_groups.map(group => group.name).join(', ')}</p>
