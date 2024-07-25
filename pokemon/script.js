@@ -146,10 +146,10 @@ function generatePopUpHeadHTML(pokemonDetails){
             </div>
             <img id="popup-image" src="${pokemonDetails.sprites.other['official-artwork'].front_default}" alt="${pokemonDetails.name}" alt="Pokemon Image">
             <div id="select-section">
-                <button id="about">About</button>
-                <button id="stats">Stats</button>
-                <button id="evolution">EVO</button>
-                <button id="more-info">More Info</button>
+                <button class="select-button" id="about">About</button>
+                <button class="select-button" id="stats">Stats</button>
+                <button class="select-button" id="evolution">EVO</button>
+                <button class="select-button" id="more-info">More Info</button>
             </div>
         </div>
         <div id="pokemon-card-body" class="pokemon-card-body"></div>`
@@ -181,15 +181,14 @@ function showStats(pokemonDetails) {
             </ul>
         </div>`;
 }
-
 async function showEvolution(pokemonDetails) {
     const cardBody = document.getElementById('pokemon-card-body');
     const evolutionData = await getEvolutionData(pokemonDetails.species.url);
 
     cardBody.innerHTML = `
         <div class="evolution-section">
-            <h3>Evolution Chain of ${pokemonDetails.name}</h3>
-            ${evolutionData ? evolutionData : 'No evolution data available'}
+            <h3>Evolution Chain</h3>
+            <div class="evolution-chain">${evolutionData ? evolutionData : 'No evolution data available'}</div>
         </div>`;
 }
 
@@ -202,29 +201,62 @@ async function getEvolutionData(speciesUrl) {
         const evolutionResponse = await fetch(evolutionChainUrl);
         const evolutionData = await evolutionResponse.json();
 
-        return parseEvolutionChain(evolutionData.chain);
+        return await parseEvolutionChain(evolutionData.chain);
     } catch (error) {
         console.error('Error fetching evolution data:', error);
         return null;
     }
 }
 
-function parseEvolutionChain(chain) {
-    let evolutionChain = '';
-    let currentChain = chain;
+async function parseEvolutionChain(chain) {
+    // Starte den rekursiven Prozess
+    return await parseEvolutionChainRecursive(chain);
+}
 
-    while (currentChain) {
-        evolutionChain += `<p>${currentChain.species.name}</p>`;
-        if (currentChain.evolves_to.length > 0) {
-            evolutionChain += '<p> evolves to </p>';
-            currentChain = currentChain.evolves_to[0];
-        } else {
-            currentChain = null;
-        }
+async function parseEvolutionChainRecursive(chain) {
+    if (!chain) return '';
+
+    // Füge das aktuelle Pokémon hinzu
+    let evolutionChain = await getPokemonHTML(chain.species.url);
+
+    // Überprüfe, ob es weitere Evolutionsstufen gibt und füge den Pfeil hinzu
+    if (chain.evolves_to && chain.evolves_to.length > 0) {
+        evolutionChain += `<img src="img/chevron_right.svg" alt="arrow" class="evolution-arrow">`;
+        // Rekursiver Aufruf für die nächste Evolutionsstufe
+        evolutionChain += await parseEvolutionChainRecursive(chain.evolves_to[0]);
     }
 
     return evolutionChain;
 }
+
+async function getPokemonHTML(speciesUrl) {
+    try {
+        // Extrahiere die Pokémon-ID aus der Spezies-URL
+        const speciesResponse = await fetch(speciesUrl);
+        const speciesData = await speciesResponse.json();
+        const pokemonId = speciesData.id;
+
+        // Abrufen der Pokémon-Daten unter Verwendung der ID
+        const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+        const pokemonData = await pokemonResponse.json();
+
+        // Rückgabe der HTML-Struktur mit dem Bild und Namen des Pokémon
+        return `
+            <div class="evolution-pokemon">
+                <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+                <p>${pokemonData.name}</p>
+            </div>
+        `;
+    } catch (error) {
+        console.error(`Error fetching Pokémon data:`, error);
+        return `
+            <div class="evolution-pokemon">
+                <p>Image not available</p>
+            </div>
+        `;
+    }
+}
+
 
 function showMoreInfo(pokemonDetails) {
     const cardBody = document.getElementById('pokemon-card-body');
@@ -236,7 +268,7 @@ function showMoreInfo(pokemonDetails) {
 
     cardBody.innerHTML = `
         <div class="more-info-section">
-            <h3>More Info about ${pokemonDetails.name}</h3>
+            <h3>More Info</h3>
             <p>Habitat: ${habitat}</p>
             <p>Forms: ${forms}</p>
             <p>Moves: ${moves}</p>
@@ -253,5 +285,4 @@ function resetTypeClasses(cardElement) {
     typeClasses.forEach(typeClass => cardElement.classList.remove(typeClass));
 }
         
-        
-        // <p>Egg Groups: ${pokemonDetails.egg_groups.map(group => group.name).join(', ')}</p>
+    

@@ -19,7 +19,7 @@
     border-radius: 12px;
     width: 400px;
     max-width: 90%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); */
     padding: 20px;
     position: relative;
     overflow: hidden; /* Verhindert Überlauf von Inhalten */
@@ -48,12 +48,44 @@
     z-index: 0;
     border-radius: 32px 32px 0 0 ;
 }
-#select-section button{
+/* #select-section button{
     background-color: red;
     color: white;
     border-radius: 8px;
     padding: 8px 4px;
+} */
+/*  */
+/* Allgemeines Button-Design */
+button {
+    background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
+    border: none;
+    color: white; /* Weiße Schriftfarbe */
+    padding: 10px 20px; /* Innenabstand */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Schriftgröße */
+    margin: 4px 2px; /* Außenabstand */
+    transition-duration: 0.4s; /* Übergangszeit */
+    cursor: pointer; /* Zeiger als Cursor */
+    border-radius: 12px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
 }
+
+/* Hover-Effekt */
+button:hover {
+    background-color: white; /* Hintergrundfarbe beim Hover */
+    color: black; /* Schriftfarbe beim Hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
+}
+
+/* Aktiver Zustand */
+button:active {
+    background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
+    box-shadow: 0 5px #666; /* Innerer Schatten */
+    transform: translateY(4px); /* Leichte Verschiebung nach unten */
+}
+
 
 #popup-image{
     object-fit: cover; 
@@ -67,9 +99,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    
     text-align: center;
-
     z-index: 1;
     position: relative;
 }
@@ -91,6 +121,38 @@
     padding: 0px 20px 20px 20px;
 }
 .about-section h3{
+    margin: 0;
+}
+.stats-section{
+    padding: 0px 20px 20px 20px;
+}
+.stats-section h3{
+    margin: 0;
+}
+.evolution-section{
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+.evolution-section h3{
+    margin: 0;
+}
+.evolution-chain{
+    display: flex;
+}
+.evolution-arrow{
+    padding: 0;
+    width: 28px;
+}
+.evolution-pokemon p{
+    margin: 0;
+    padding-left: 12px;
+}
+.more-info-section{
+    padding: 0px 20px 20px 20px
+}
+.more-info-section h3{
     margin: 0;
 }
 
