@@ -94,6 +94,11 @@ document.getElementById("search").addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault(); // Verhindert das Standardverhalten (z.B. Form-Submits)
     searchPokemon();
+    const button = document.getElementById('load-more');
+    button.style.display='none';
+    const goButton = document.getElementById('go-back');
+    goButton.style.display='flex';
+    
   }
 });
 
@@ -217,20 +222,35 @@ function capitalize(text) {
 }
 
 function showStats(pokemonDetails) {
-  const cardBody = document.getElementById("pokemon-card-body");
-  cardBody.innerHTML = `
+    console.log(pokemonDetails.stats);
+    const cardBody = document.getElementById('pokemon-card-body');
+    cardBody.innerHTML = `
         <div class="stats-section">
             <h3>Base Stats</h3>
             <ul>
-                ${pokemonDetails.stats
-                  .map(
-                    (statInfo) => `
-                    <li>${statInfo.stat.name}: ${statInfo.base_stat}</li>
-                `
-                  )
-                  .join("")}
+                ${pokemonDetails.stats.map(statInfo => `
+                    <li class="stat-item">
+                        <span class="stat-name">${formatStatName(statInfo.stat.name)}:</span>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" style="width: ${statInfo.base_stat / 1.2}%;"></div>
+                        </div>
+                        <span class="stat-value">${statInfo.base_stat}</span>
+                    </li>
+                `).join('')}
             </ul>
         </div>`;
+}
+function formatStatName(statName) {
+    switch (statName) {
+        case 'special-attack':
+            return 'Sp. Atk';
+        case 'special-defense':
+            return 'Sp. Def';
+        // case 'defense':
+        //     return 'Def'
+        default:
+            return statName.charAt(0).toUpperCase() + statName.slice(1);
+    }
 }
 async function showEvolution(pokemonDetails) {
   const cardBody = document.getElementById("pokemon-card-body");
@@ -348,3 +368,30 @@ function resetTypeClasses(cardElement) {
   ];
   typeClasses.forEach((typeClass) => cardElement.classList.remove(typeClass));
 }
+
+
+function goBack(){
+    const content = document.getElementById('pokemon-list');
+    content.innerHTML = "";
+    const button = document.getElementById('load-more');
+    button.style.display='flex';
+    const goButton = document.getElementById('go-back');
+    goButton.style.display='none';
+    displayPokemon();
+}
+// function toggleButtons() {
+//     // 1. Holen der Buttons
+//     const loadMoreButton = document.getElementById('load-more');
+//     const goBackButton = document.getElementById('go-back');
+    
+//     // 2. Überprüfen des aktuellen Zustands des 'load-more' Buttons
+//     if (loadMoreButton.style.display === 'flex') {
+//         // 3. Ändern der Zustände, wenn 'display' bereits 'flex' ist
+//         loadMoreButton.style.display = 'none';
+//         goBackButton.style.display = 'flex';
+//     } else {
+//         // 4. Ändern der Zustände, wenn 'display' nicht 'flex' ist
+//         loadMoreButton.style.display = 'flex';
+//         goBackButton.style.display = 'none';
+//     }
+// }

@@ -1,47 +1,38 @@
 .pokemon-popup {
-    display: none; /* Standardmäßig versteckt */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dunkler Hintergrund */
+    background: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Über anderen Inhalten */
-    
+    z-index: 1000;
 }
-/* Popup Content Container */
 .pokemon-popup-content {
     display: flex;
     flex-direction: column;
     position: relative;
-    /* overflow: auto;                     */
     border-radius: 12px;
     width: 400px;
     height: 624px;
     max-width: 90%;
     padding: 20px;
-    
 }
-/* Popup Card Styles */
 .pokemon-card-popup {
-    
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     padding-top: 4px;
-    /* flex: 1; */
     height: 100%;
 }
-/* selbstgeschriebener code/ guter code */
 .popup-header{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0px 8px;
 }
-
 #select-section{
     display: flex;
     justify-content: space-evenly;
@@ -51,38 +42,6 @@
     z-index: 0;
     border-radius: 32px 32px 0 0 ;
 }
-
-/* Allgemeines Button-Design */
-button {
-    background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
-    border: none;
-    color: white; /* Weiße Schriftfarbe */
-    padding: 10px 20px; /* Innenabstand */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px; /* Schriftgröße */
-    margin: 4px 2px; /* Außenabstand */
-    transition-duration: 0.4s; /* Übergangszeit */
-    cursor: pointer; /* Zeiger als Cursor */
-    border-radius: 12px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
-}
-
-/* Hover-Effekt */
-button:hover {
-    background-color: white; /* Hintergrundfarbe beim Hover */
-    color: black; /* Schriftfarbe beim Hover */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
-}
-
-/* Aktiver Zustand */
-button:active {
-    background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
-    box-shadow: 0 5px #666; /* Innerer Schatten */
-    transform: translateY(4px); /* Leichte Verschiebung nach unten */
-}
-
 #popup-image{
     z-index: 1000;
     height: 250px;
@@ -106,17 +65,16 @@ button:active {
     font-size: 16px;
     padding-bottom: 8px;
     flex: 1; 
-    /* overflow-y: auto; */
     border-radius: 0 0 10px 10px;
     height: 100%;
-    
 }
 .pokemon-card-body p {
     margin: 8px 0;
 }
+
+
 .about-section{
     padding: 0px 20px 20px 20px;
-    
 }
 .about-section h3{
     margin: 0;
@@ -145,17 +103,59 @@ button:active {
 .section-title{
     padding-bottom: 8px;
 }
+
+
 .stats-section{
     padding: 0px 20px 20px 20px;
 }
 .stats-section h3{
     margin: 0;
+    padding: 0;
 }
+.stat-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.stat-name {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+    padding: 4px 0;
+}
+.stat-bar {
+    flex: 2;
+    background-color: #ddd;
+    border-radius: 5px;
+    /* margin: 0 10px; */
+    height: 10px;
+    position: relative;
+}
+.stat-bar-fill {
+    background-color: #4CAF50;
+    height: 100%;
+    border-radius: 5px 0 0 5px;
+    transition: width 0.3s ease-in-out;
+}
+.stat-value {
+    /* width: 30px; */
+    text-align: right;
+    font-size: 14px;
+    color: #333;
+}
+.stats-section ul li{
+    margin: 0;
+    /* font-weight: bold; */
+}
+.stats-section ul{
+    padding-left: 0px;
+}
+
+
 .evolution-section{
     padding: 0px 20px 20px 20px;
     display: flex;
     flex-direction: column;
-
 }
 .evolution-section h3{
     margin: 0;
@@ -170,37 +170,33 @@ button:active {
     width: 28px;
 }
 .evolution-pokemon p{
+    font-weight: bold;
     margin: 0;
     padding-left: 12px;
 }
-/* Moves Section */
+
+
 .moves-section {
     padding: 0px 20px 20px 20px;
-    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
-    max-height: 200px; /* Maximale Höhe für die Moves-Sektion */
-    scrollbar-width: thin; /* Für Firefox, dünner Scrollbalken */
-    scrollbar-color: #ff0000 #f0f0f0; /* Scrollbar-Farbe für Firefox (Farbe des Balkens und der Spur) */
+    overflow-y: auto;
+    max-height: 200px; 
+    scrollbar-width: thin;
+    scrollbar-color: #ff0000 #f0f0f0; 
 }
-
-/* Webkit Scrollbars (Chrome, Safari) */
 .moves-section::-webkit-scrollbar {
-    width: 12px; /* Breite des Scrollbalkens */
+    width: 12px; 
 }
-
 .moves-section::-webkit-scrollbar-track {
-    background: #f0f0f0; /* Hintergrundfarbe der Scrollbar-Spur */
-    border-radius: 10px; /* Abgerundete Ecken der Spur */
+    background: #f0f0f0; 
+    border-radius: 10px;
 }
-
 .moves-section::-webkit-scrollbar-thumb {
-    background: #ff0000; /* Hintergrundfarbe des Scrollbalkens */
-    border-radius: 10px; /* Abgerundete Ecken des Scrollbalkens */
+    background: #ff0000; 
+    border-radius: 10px; 
 }
-
 .moves-section::-webkit-scrollbar-thumb:hover {
-    background: #cc0000; /* Farbe des Scrollbalkens beim Hover */
+    background: #cc0000; 
 }
-
 .moves-section h3{
     margin: 0;
 }

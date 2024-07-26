@@ -12,7 +12,7 @@
 </head>
 <body onload="init()">
     <nav class="navbar">
-        <div class="logo align-head">logo</div>
+        <div class="logo align-head"><img class="pokeBall-align" src="./img/pokeBall.png" alt=""><h1 class="pokedex-head">pokédex</h1></div>
         <div class="search align-head">
             <input type="text" id="search" placeholder="Search for Pokémon...">  
         </div>
@@ -20,6 +20,7 @@
     <div class="content">
         <div id="pokemon-list"></div>
         <button id="load-more">load more</button>
+        <button id="go-back" onclick="goBack()">Go Back</button>
     </div>
 
     <div id="pokemon-popup" class="pokemon-popup">

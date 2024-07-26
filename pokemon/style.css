@@ -3,8 +3,42 @@ body {
   max-width: 1920px;
   text-transform: capitalize;
 }
+.pokeBall-align{
+  height: 80px;
+}
+.pokedex-head{
+  font-size: 60px;
+  margin: 0;
+}
+.logo{
+  display: flex;
+  align-items: center;
+   
+}
 button {
+  background-color: rgb(255, 0, 0); 
+  border: none;
+  color: white; 
+  padding: 10px 20px; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px; 
+  transition-duration: 0.4s;
   cursor: pointer;
+  border-radius: 12px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+button:hover {
+  background-color: white; 
+  color: black; 
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+}
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666; 
+  transform: translateY(4px); 
 }
 .content {
   display: flex;
@@ -26,12 +60,36 @@ button {
 .align-head {
   padding: 0 24px;
 }
+#search{
+  background: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 24px;
+  text-align: center;
+  outline: none;
+  color: white;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+input::placeholder {
+  color: white; 
+}
 #load-more {
   border: none;
   background: none;
   margin: 24px;
   font-size: large;
   font-weight: bold;
+}
+#go-back{
+  display: none;
+  border: none;
+  background: none;
+  margin: 24px;
+  font-size: large;
+  font-weight: bold;
+}
+#go-back:hover{
+  transform: scale(1.2); 
 }
 #load-more:hover {
   transform: scale(1.2);
@@ -97,6 +155,8 @@ span {
   max-height: 250px;
   min-height: 200px;
 }
+
+
 /* bg animation */
 body {
   margin: 0;
