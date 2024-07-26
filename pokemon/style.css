@@ -2,6 +2,10 @@
 body {
   font-family: 'Raleway';
   max-width: 1920px;
+  text-transform: capitalize; 
+}
+.no-transform{
+  text-transform: none;
 }
 button {
   cursor: pointer;
@@ -144,3 +148,6 @@ body {
     background-position: 0% 0%;
   }
 }
+
+
+

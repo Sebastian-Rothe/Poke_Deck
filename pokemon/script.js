@@ -127,12 +127,15 @@ function openPopup(pokemonDetails) {
     document.getElementById('about').addEventListener('click', () => showAbout(pokemonDetails));
     document.getElementById('stats').addEventListener('click', () => showStats(pokemonDetails));
     document.getElementById('evolution').addEventListener('click', () => showEvolution(pokemonDetails));
-    document.getElementById('more-info').addEventListener('click', () => showMoreInfo(pokemonDetails));
+    document.getElementById('moves').addEventListener('click', () => showMoves(pokemonDetails));
     
+    document.body.style.overflow = 'hidden';
+
     popup.style.display = 'flex'; // Show the pop-up
     popup.addEventListener('click', function(event) {
         if (event.target === popup) { // Überprüfen, ob der Klick auf das Hintergrund-Div (nicht die Karte) war
             popup.style.display = 'none'; // Pop-up schließen
+            document.body.style.overflow = 'auto'; 
         }
     });
     showAbout(pokemonDetails);
@@ -149,7 +152,7 @@ function generatePopUpHeadHTML(pokemonDetails){
                 <button class="select-button" id="about">About</button>
                 <button class="select-button" id="stats">Stats</button>
                 <button class="select-button" id="evolution">EVO</button>
-                <button class="select-button" id="more-info">More Info</button>
+                <button class="select-button" id="moves">Moves</button>
             </div>
         </div>
         <div id="pokemon-card-body" class="pokemon-card-body"></div>`
@@ -160,11 +163,11 @@ function showAbout(pokemonDetails) {
     const cardBody = document.getElementById('pokemon-card-body');
     cardBody.innerHTML = `
         <div class="about-section">
-            <h3>About ${pokemonDetails.name}</h3>
+            <h3>About</h3>
             <p>Type: ${pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')}</p>
             <p>Abilities: ${pokemonDetails.abilities.map(abilityInfo => abilityInfo.ability.name).join(', ')}</p>
             <p>Weight: ${pokemonDetails.weight / 10} kg</p>
-            <p>Height: ${pokemonDetails.height / 10} m</p>
+            <p class="no-transform" >Height: ${pokemonDetails.height / 10} m</p>
             <p>Base Experience: ${pokemonDetails.base_experience}</p>
         </div>`;
 }
@@ -173,7 +176,7 @@ function showStats(pokemonDetails) {
     const cardBody = document.getElementById('pokemon-card-body');
     cardBody.innerHTML = `
         <div class="stats-section">
-            <h3>Stats of ${pokemonDetails.name}</h3>
+            <h3>Base Stats</h3>
             <ul>
                 ${pokemonDetails.stats.map(statInfo => `
                     <li>${statInfo.stat.name}: ${statInfo.base_stat}</li>
@@ -258,19 +261,14 @@ async function getPokemonHTML(speciesUrl) {
 }
 
 
-function showMoreInfo(pokemonDetails) {
+function showMoves(pokemonDetails) {
     const cardBody = document.getElementById('pokemon-card-body');
 
-    // Falls verfügbar, extrahiere die Daten
-    const habitat = pokemonDetails.habitat ? pokemonDetails.habitat.name : "N/A";
-    const forms = pokemonDetails.forms.map(form => form.name).join(', ');
     const moves = pokemonDetails.moves.map(move => move.move.name).join(', ');
 
     cardBody.innerHTML = `
-        <div class="more-info-section">
-            <h3>More Info</h3>
-            <p>Habitat: ${habitat}</p>
-            <p>Forms: ${forms}</p>
+        <div class="moves-section">
+            <h3>Moves</h3>
             <p>Moves: ${moves}</p>
         </div>
     `;

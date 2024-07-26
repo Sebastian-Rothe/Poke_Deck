@@ -9,27 +9,30 @@
     justify-content: center;
     align-items: center;
     z-index: 1000; /* Über anderen Inhalten */
-    overflow: auto; /* Ermöglicht Scrollen bei Bedarf */
+    
 }
 /* Popup Content Container */
 .pokemon-popup-content {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    position: relative;
+    /* overflow: auto;                     */
     border-radius: 12px;
     width: 400px;
+    height: 624px;
     max-width: 90%;
-    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); */
     padding: 20px;
-    position: relative;
-    overflow: hidden; /* Verhindert Überlauf von Inhalten */
+    
 }
 /* Popup Card Styles */
 .pokemon-card-popup {
+    
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     padding-top: 4px;
+    /* flex: 1; */
+    height: 100%;
 }
 /* selbstgeschriebener code/ guter code */
 .popup-header{
@@ -48,76 +51,70 @@
     z-index: 0;
     border-radius: 32px 32px 0 0 ;
 }
-/* #select-section button{
-    background-color: red;
-    color: white;
-    border-radius: 8px;
-    padding: 8px 4px;
-} */
-/*  */
-/* Allgemeines Button-Design */
-button {
-    background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
-    border: none;
-    color: white; /* Weiße Schriftfarbe */
-    padding: 10px 20px; /* Innenabstand */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px; /* Schriftgröße */
-    margin: 4px 2px; /* Außenabstand */
-    transition-duration: 0.4s; /* Übergangszeit */
-    cursor: pointer; /* Zeiger als Cursor */
-    border-radius: 12px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
-}
 
-/* Hover-Effekt */
-button:hover {
-    background-color: white; /* Hintergrundfarbe beim Hover */
-    color: black; /* Schriftfarbe beim Hover */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
-}
-
-/* Aktiver Zustand */
-button:active {
-    background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
-    box-shadow: 0 5px #666; /* Innerer Schatten */
-    transform: translateY(4px); /* Leichte Verschiebung nach unten */
-}
-
-
-#popup-image{
-    object-fit: cover; 
-    position: relative;
-    z-index: 1000;
-    height: 250px;
-    width: 250px;
-}
-.pokemon-card-header {
-    background-image: url(./img/poke-bg.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
-    z-index: 1;
-    position: relative;
-}
-.pokemon-card-header h2 {
-    font-size: 56px;
-    margin: 0;
-    margin-top: 12px;
-}
-.pokemon-card-body {
-    background: rgba(255, 255, 255, 0.65);
-    font-size: 16px;
-    z-index: 0;
-    padding-bottom: 8px;
-}
-.pokemon-card-body p {
-    margin: 8px 0;
-}
-.about-section{
+    /* Allgemeines Button-Design */
+    button {
+        background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
+        border: none;
+        color: white; /* Weiße Schriftfarbe */
+        padding: 10px 20px; /* Innenabstand */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px; /* Schriftgröße */
+        margin: 4px 2px; /* Außenabstand */
+        transition-duration: 0.4s; /* Übergangszeit */
+        cursor: pointer; /* Zeiger als Cursor */
+        border-radius: 12px; /* Abgerundete Ecken */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
+    }
+    
+    /* Hover-Effekt */
+    button:hover {
+        background-color: white; /* Hintergrundfarbe beim Hover */
+        color: black; /* Schriftfarbe beim Hover */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
+    }
+    
+    /* Aktiver Zustand */
+    button:active {
+        background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
+        box-shadow: 0 5px #666; /* Innerer Schatten */
+        transform: translateY(4px); /* Leichte Verschiebung nach unten */
+    }
+    
+    #popup-image{
+        z-index: 1000;
+        height: 250px;
+        width: 250px;
+    }
+    .pokemon-card-header {
+        background-image: url(./img/poke-bg.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        z-index: 1;
+    }
+    .pokemon-card-header h2 {
+        font-size: 56px;
+        margin: 0;
+        margin-top: 12px;
+    }
+    .pokemon-card-body {
+        background: rgba(255, 255, 255, 0.65);
+        font-size: 16px;
+        padding-bottom: 8px;
+        flex: 1; 
+        /* overflow-y: auto; */
+        border-radius: 0 0 10px 10px;
+        height: 100%;
+        
+    }
+    .pokemon-card-body p {
+        margin: 8px 0;
+    }
+    .about-section{
     padding: 0px 20px 20px 20px;
 }
 .about-section h3{
@@ -140,6 +137,7 @@ button:active {
 }
 .evolution-chain{
     display: flex;
+    justify-content: center;
 }
 .evolution-arrow{
     padding: 0;
@@ -149,10 +147,37 @@ button:active {
     margin: 0;
     padding-left: 12px;
 }
-.more-info-section{
-    padding: 0px 20px 20px 20px
-}
-.more-info-section h3{
-    margin: 0;
+/* Moves Section */
+.moves-section {
+    padding: 0px 20px 20px 20px;
+    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+    max-height: 200px; /* Maximale Höhe für die Moves-Sektion */
+    scrollbar-width: thin; /* Für Firefox, dünner Scrollbalken */
+    scrollbar-color: #ff0000 #f0f0f0; /* Scrollbar-Farbe für Firefox (Farbe des Balkens und der Spur) */
 }
 
+/* Webkit Scrollbars (Chrome, Safari) */
+.moves-section::-webkit-scrollbar {
+    width: 12px; /* Breite des Scrollbalkens */
+}
+
+.moves-section::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Hintergrundfarbe der Scrollbar-Spur */
+    border-radius: 10px; /* Abgerundete Ecken der Spur */
+}
+
+.moves-section::-webkit-scrollbar-thumb {
+    background: #ff0000; /* Hintergrundfarbe des Scrollbalkens */
+    border-radius: 10px; /* Abgerundete Ecken des Scrollbalkens */
+}
+
+.moves-section::-webkit-scrollbar-thumb:hover {
+    background: #cc0000; /* Farbe des Scrollbalkens beim Hover */
+}
+
+.moves-section h3{
+    margin: 0;
+}
+.moves-section p{
+    margin: 4px 0;
+}
