@@ -2,7 +2,7 @@
 function generateCardHTML(pokemonDetails) {
     const types = pokemonDetails.types.map(typeInfo => typeInfo.type.name);
     const typeIcons = types.map(type => 
-        `<div class="icon-container">
+        `<div class="icon-container ${type}">
             <img src="/img/icons/${type}.svg" class="type-icon" alt="${type}">
         </div>`
     ).join(' ');

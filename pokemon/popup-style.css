@@ -52,73 +52,98 @@
     border-radius: 32px 32px 0 0 ;
 }
 
-    /* Allgemeines Button-Design */
-    button {
-        background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
-        border: none;
-        color: white; /* Weiße Schriftfarbe */
-        padding: 10px 20px; /* Innenabstand */
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px; /* Schriftgröße */
-        margin: 4px 2px; /* Außenabstand */
-        transition-duration: 0.4s; /* Übergangszeit */
-        cursor: pointer; /* Zeiger als Cursor */
-        border-radius: 12px; /* Abgerundete Ecken */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
-    }
+/* Allgemeines Button-Design */
+button {
+    background-color: rgb(255, 0, 0); /* Grüne Hintergrundfarbe */
+    border: none;
+    color: white; /* Weiße Schriftfarbe */
+    padding: 10px 20px; /* Innenabstand */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Schriftgröße */
+    margin: 4px 2px; /* Außenabstand */
+    transition-duration: 0.4s; /* Übergangszeit */
+    cursor: pointer; /* Zeiger als Cursor */
+    border-radius: 12px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
+}
+
+/* Hover-Effekt */
+button:hover {
+    background-color: white; /* Hintergrundfarbe beim Hover */
+    color: black; /* Schriftfarbe beim Hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
+}
+
+/* Aktiver Zustand */
+button:active {
+    background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
+    box-shadow: 0 5px #666; /* Innerer Schatten */
+    transform: translateY(4px); /* Leichte Verschiebung nach unten */
+}
+
+#popup-image{
+    z-index: 1000;
+    height: 250px;
+    width: 250px;
+}
+.pokemon-card-header {
+    background-image: url(./img/poke-bg.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    z-index: 1;
+}
+.pokemon-card-header h2 {
+    font-size: 56px;
+    margin: 0;
+    margin-top: 12px;
+}
+.pokemon-card-body {
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 16px;
+    padding-bottom: 8px;
+    flex: 1; 
+    /* overflow-y: auto; */
+    border-radius: 0 0 10px 10px;
+    height: 100%;
     
-    /* Hover-Effekt */
-    button:hover {
-        background-color: white; /* Hintergrundfarbe beim Hover */
-        color: black; /* Schriftfarbe beim Hover */
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
-    }
-    
-    /* Aktiver Zustand */
-    button:active {
-        background-color: #3e8e41; /* Dunklere Hintergrundfarbe beim Klicken */
-        box-shadow: 0 5px #666; /* Innerer Schatten */
-        transform: translateY(4px); /* Leichte Verschiebung nach unten */
-    }
-    
-    #popup-image{
-        z-index: 1000;
-        height: 250px;
-        width: 250px;
-    }
-    .pokemon-card-header {
-        background-image: url(./img/poke-bg.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        z-index: 1;
-    }
-    .pokemon-card-header h2 {
-        font-size: 56px;
-        margin: 0;
-        margin-top: 12px;
-    }
-    .pokemon-card-body {
-        background: rgba(255, 255, 255, 0.65);
-        font-size: 16px;
-        padding-bottom: 8px;
-        flex: 1; 
-        /* overflow-y: auto; */
-        border-radius: 0 0 10px 10px;
-        height: 100%;
-        
-    }
-    .pokemon-card-body p {
-        margin: 8px 0;
-    }
-    .about-section{
+}
+.pokemon-card-body p {
+    margin: 8px 0;
+}
+.about-section{
     padding: 0px 20px 20px 20px;
+    
 }
 .about-section h3{
     margin: 0;
+}
+.about-item{
+    padding: 4px;
+    padding-left: 8px;
+}
+.about-type-div{
+    display: flex;
+}
+.type-container{
+    gap: 4px;
+    padding-left: 4px;
+}
+.type-button{
+    border-radius: 6px;
+    color: white;
+    box-shadow: none !important;
+}
+.ajust-span {
+    text-transform: none;
+    font-weight: normal;
+    padding: 0;
+}
+.section-title{
+    padding-bottom: 8px;
 }
 .stats-section{
     padding: 0px 20px 20px 20px;
@@ -138,6 +163,7 @@
 .evolution-chain{
     display: flex;
     justify-content: center;
+    padding-top: 20px;
 }
 .evolution-arrow{
     padding: 0;

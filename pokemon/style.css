@@ -1,11 +1,7 @@
-
 body {
-  font-family: 'Raleway';
+  font-family: "Raleway";
   max-width: 1920px;
-  text-transform: capitalize; 
-}
-.no-transform{
-  text-transform: none;
+  text-transform: capitalize;
 }
 button {
   cursor: pointer;
@@ -60,9 +56,9 @@ button {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 .pokemon-card .pokeImg {
-  width: 140px; 
-  height: 140px; 
-  object-fit: cover; 
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
 }
 .headline {
   width: 100%;
@@ -75,8 +71,8 @@ button {
 }
 .card:hover {
   cursor: pointer;
-  transform: scale(1.05); 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 .headline h2,
 span {
@@ -148,6 +144,3 @@ body {
     background-position: 0% 0%;
   }
 }
-
-
-
