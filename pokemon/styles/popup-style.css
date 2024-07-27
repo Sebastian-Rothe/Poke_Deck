@@ -197,15 +197,22 @@
     margin: 4px 0;
 }
 
+ 
 .arrow-prev-next{
     height: 80px;
-    margin-top: 8px;
 }
 .arrow-prev-next:hover{
     cursor: pointer;
     transform: scale(1.4);
 }
-#next-pokemon{
-  position: fixed;
-  
+.align-popup-img{
+    display: flex;
+    align-items: center;
+}
+
+
+
+.arrow-disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
