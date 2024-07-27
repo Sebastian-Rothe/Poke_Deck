@@ -5,8 +5,8 @@ const limit = 24;
 const searchButton = document.getElementById("search-button");
 
 function init() {
-  fetchPokemon(offset, limit);
   displayPokemon();
+  eventLLoadMoreAndSearch();
 }
 
 async function fetchPokemon(offset, limit) {
@@ -38,35 +38,13 @@ async function displayPokemon() {
     const card = generateCardHTML(pokemonDetails);
     pokemonContainer.appendChild(card);
   }
-  // part of try
-  setupCardClickListeners(); // Setup click listeners after adding cards
+  setupCardClickListeners(); 
 }
 
-async function fetchData() {
-  try {
-    const pokemonIndex = document.getElementById("pokemonIndex").value;
-    const response = await fetch(`${ONLOAD_POKE}${pokemonIndex}`);
-
-    if (!response.ok) {
-      throw new Error("Could not fetch resource");
-    }
-
-    const data = await response.json();
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Event-Listener für den "Weitere laden" Button
-document.getElementById("load-more").addEventListener("click", () => {
-  offset += limit;
-  displayPokemon();
-});
-
-// next 3 func => Searchfunction!!!
+ 
 async function searchPokemon() {
   let input = document.getElementById("search");
-
+  
   try {
     const pokeNameOrID = input.value.toLowerCase();
     const response = await fetch(`${baseUrl}/${pokeNameOrID}`);
@@ -82,7 +60,7 @@ async function searchPokemon() {
 
 function displaySearchResults(pokemonList) {
   const pokemonContainer = document.getElementById("pokemon-list");
-  pokemonContainer.innerHTML = ""; // Clear existing content
+  pokemonContainer.innerHTML = "";
   for (const pokemon of pokemonList) {
     const card = generateCardHTML(pokemon);
     pokemonContainer.appendChild(card);
@@ -90,19 +68,28 @@ function displaySearchResults(pokemonList) {
   setupCardClickListeners();
 }
 
-document.getElementById("search").addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault(); // Verhindert das Standardverhalten (z.B. Form-Submits)
-    searchPokemon();
-    const button = document.getElementById('load-more');
-    button.style.display='none';
-    const goButton = document.getElementById('go-back');
-    goButton.style.display='flex';
-    
-  }
-});
 
-// Function to handle card clicks
+function eventLLoadMoreAndSearch(){
+  document.getElementById("load-more").addEventListener("click", () => {
+    offset += limit;
+    displayPokemon();
+  });
+  document.getElementById("search").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+      searchPokemon();
+      switchToGOButton();
+    }
+  });
+}
+
+function switchToGOButton(){
+  const button = document.getElementById('load-more');
+  button.style.display='none';
+  const goButton = document.getElementById('go-back');
+  goButton.style.display='flex';
+}
+
 function setupCardClickListeners() {
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
@@ -118,14 +105,40 @@ function setupCardClickListeners() {
 }
 
 function openPopup(pokemonDetails) {
-  const popup = document.getElementById("pokemon-popup");
   const cardPopUp = document.getElementById("pokemon-card-popup");
   cardPopUp.innerHTML = "";
   cardPopUp.innerHTML += generatePopUpHeadHTML(pokemonDetails);
+  
+  document.body.style.overflow = "hidden";
+  // document.getElementById("next-pokemon").addEventListener("click", () => goToNextPokemon(pokemonDetails));
+  // goToNextPokemon(pokemonDetails);
+  funcToOpenPopUp(cardPopUp, pokemonDetails);
+}
 
+function funcToOpenPopUp(cardPopUp, pokemonDetails){
   resetTypeClasses(cardPopUp);
   setPokemonTypeClass(cardPopUp, pokemonDetails);
+  setEventListener(pokemonDetails);
+  showPopUp();
+  showAbout(pokemonDetails);
+}
 
+function showPopUp(){
+  const popup = document.getElementById("pokemon-popup");
+  popup.style.display = "flex"; 
+  popUpEventListener(popup);
+}
+
+function popUpEventListener(popup){
+  popup.addEventListener("click", function (event) {
+    if (event.target === popup) {
+      popup.style.display = "none"; 
+      document.body.style.overflow = "auto";
+    }
+  });
+}
+
+function setEventListener(pokemonDetails){
   document
     .getElementById("about")
     .addEventListener("click", () => showAbout(pokemonDetails));
@@ -138,18 +151,6 @@ function openPopup(pokemonDetails) {
   document
     .getElementById("moves")
     .addEventListener("click", () => showMoves(pokemonDetails));
-
-  document.body.style.overflow = "hidden";
-
-  popup.style.display = "flex"; // Show the pop-up
-  popup.addEventListener("click", function (event) {
-    if (event.target === popup) {
-      // Überprüfen, ob der Klick auf das Hintergrund-Div (nicht die Karte) war
-      popup.style.display = "none"; // Pop-up schließen
-      document.body.style.overflow = "auto";
-    }
-  });
-  showAbout(pokemonDetails);
 }
 
 function generatePopUpHeadHTML(pokemonDetails) {
@@ -169,93 +170,79 @@ function generatePopUpHeadHTML(pokemonDetails) {
         <div id="pokemon-card-body" class="pokemon-card-body"></div>`;
 }
 
-// <span id="popup-id">#${pokemonDetails.id}</span>
+
 function showAbout(pokemonDetails) {
   const cardBody = document.getElementById("pokemon-card-body");
   cardBody.innerHTML = `
-                    <div class="about-section">
-                        <h3 class="section-title">About</h3>
-                        <div class="about-info">
-                            <div class="about-item about-type-div">
-                                <strong>Type:</strong>
-                                <div class="type-container">
-                                    ${pokemonDetails.types
-                                      .map(
-                                        (typeInfo) =>
-                                          `<span class="type-button ${
-                                            typeInfo.type.name
-                                          }">${typeInfo.type.name.toUpperCase()}</span>`
-                                      )
-                                      .join(" ")}
-                                </div>
-                            </div>
-                            <div class="about-item">
-                                <strong>Abilities:</strong> ${pokemonDetails.abilities
-                                  .map(
-                                    (abilityInfo) => abilityInfo.ability.name
-                                  )
-                                  .join(", ")}
-                            </div>
-                            <div class="about-item">
-                                <strong>Weight:</strong> ${
-                                  pokemonDetails.weight / 10
-                                } kg
-                            </div>
-                            <div class="about-item">
-                                <strong>Height:</strong> <span class="ajust-span">${
-                                  pokemonDetails.height * 10
-                                } cm</span>
-                            
-                                </div>
-                            <div class="about-item">
-                                <strong>Base Experience:</strong> ${
-                                  pokemonDetails.base_experience
-                                }
-                            </div>
-                        </div>
-                    </div>`;
+    <div class="about-section">
+        <h3 class="section-title">About</h3>
+        <div class="about-info">
+            <div class="about-item about-type-div">
+                <strong>Type:</strong>
+                <div class="type-container">
+                    ${pokemonDetails.types.map((typeInfo) =>
+                          `<span class="type-button ${typeInfo.type.name
+                          }">${typeInfo.type.name.toUpperCase()}</span>`
+                      ).join(" ")}
+                </div>
+            </div>
+            <div class="about-item">
+                <strong>Abilities:</strong> ${pokemonDetails.abilities
+                  .map((abilityInfo) => abilityInfo.ability.name)
+                  .join(", ")}
+            </div>
+            <div class="about-item">
+                <strong>Weight:</strong> ${
+                  pokemonDetails.weight / 10} kg
+            </div>
+            <div class="about-item">
+                <strong>Height:</strong> <span class="ajust-span">${
+                  pokemonDetails.height * 10} cm</span>
+            </div>
+            <div class="about-item">
+                <strong>Base Experience:</strong> ${
+                  pokemonDetails.base_experience}
+            </div>
+        </div>
+    </div>`;
 }
 
-// Helper function to capitalize the first letter of each word
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 function showStats(pokemonDetails) {
-    console.log(pokemonDetails.stats);
     const cardBody = document.getElementById('pokemon-card-body');
     cardBody.innerHTML = `
-        <div class="stats-section">
-            <h3>Base Stats</h3>
-            <ul>
-                ${pokemonDetails.stats.map(statInfo => `
-                    <li class="stat-item">
-                        <span class="stat-name">${formatStatName(statInfo.stat.name)}:</span>
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width: ${statInfo.base_stat / 1.2}%;"></div>
-                        </div>
-                        <span class="stat-value">${statInfo.base_stat}</span>
-                    </li>
-                `).join('')}
-            </ul>
-        </div>`;
+      <div class="stats-section">
+          <h3>Base Stats</h3>
+          <ul>
+            ${pokemonDetails.stats.map(statInfo => `
+                <li class="stat-item">
+                    <span class="stat-name">${formatStatName(statInfo.stat.name)}:</span>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="width: ${statInfo.base_stat / 1.2}%;"></div>
+                    </div>
+                    <span class="stat-value">${statInfo.base_stat}</span>
+                </li>`).join('')}
+          </ul>
+      </div>`;
 }
+
 function formatStatName(statName) {
     switch (statName) {
         case 'special-attack':
             return 'Sp. Atk';
         case 'special-defense':
             return 'Sp. Def';
-        // case 'defense':
-        //     return 'Def'
         default:
             return statName.charAt(0).toUpperCase() + statName.slice(1);
     }
 }
-async function showEvolution(pokemonDetails) {
-  const cardBody = document.getElementById("pokemon-card-body");
-  const evolutionData = await getEvolutionData(pokemonDetails.species.url);
 
+async function showEvolution(pokemonDetails) {
+  const evolutionData = await getEvolutionData(pokemonDetails.species.url);
+  const cardBody = document.getElementById("pokemon-card-body");
   cardBody.innerHTML = `
         <div class="evolution-section">
             <h3>Evolution Chain</h3>
@@ -282,59 +269,56 @@ async function getEvolutionData(speciesUrl) {
 }
 
 async function parseEvolutionChain(chain) {
-  // Starte den rekursiven Prozess
   return await parseEvolutionChainRecursive(chain);
 }
 
 async function parseEvolutionChainRecursive(chain) {
   if (!chain) return "";
 
-  // Füge das aktuelle Pokémon hinzu
   let evolutionChain = await getPokemonHTML(chain.species.url);
 
-  // Überprüfe, ob es weitere Evolutionsstufen gibt und füge den Pfeil hinzu
   if (chain.evolves_to && chain.evolves_to.length > 0) {
     evolutionChain += `<img src="img/chevron_right.svg" alt="arrow" class="evolution-arrow">`;
-    // Rekursiver Aufruf für die nächste Evolutionsstufe
     evolutionChain += await parseEvolutionChainRecursive(chain.evolves_to[0]);
   }
-
   return evolutionChain;
 }
 
 async function getPokemonHTML(speciesUrl) {
   try {
-    // Extrahiere die Pokémon-ID aus der Spezies-URL
     const speciesResponse = await fetch(speciesUrl);
     const speciesData = await speciesResponse.json();
     const pokemonId = speciesData.id;
-
-    // Abrufen der Pokémon-Daten unter Verwendung der ID
     const pokemonResponse = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-    );
+      `${baseUrl}/${pokemonId}`);
     const pokemonData = await pokemonResponse.json();
 
-    // Rückgabe der HTML-Struktur mit dem Bild und Namen des Pokémon
-    return `
-            <div class="evolution-pokemon">
-                <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
-                <p>${pokemonData.name}</p>
-            </div>
-        `;
+    return returnEvoHTML(pokemonData);
   } catch (error) {
     console.error(`Error fetching Pokémon data:`, error);
-    return `
-            <div class="evolution-pokemon">
-                <p>Image not available</p>
-            </div>
-        `;
+    return returnEvoError();
   }
+}
+
+function returnEvoError(){
+  return `
+  <div class="evolution-pokemon">
+      <p>Image not available</p>
+  </div>
+`;
+}
+
+function returnEvoHTML(pokemonData){
+  return `
+    <div class="evolution-pokemon">
+        <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+        <p>${pokemonData.name}</p>
+    </div>
+  `;
 }
 
 function showMoves(pokemonDetails) {
   const cardBody = document.getElementById("pokemon-card-body");
-
   const moves = pokemonDetails.moves.map((move) => move.move.name).join(", ");
 
   cardBody.innerHTML = `
@@ -347,24 +331,10 @@ function showMoves(pokemonDetails) {
 
 function resetTypeClasses(cardElement) {
   const typeClasses = [
-    "normal",
-    "fire",
-    "water",
-    "electric",
-    "grass",
-    "ice",
-    "fighting",
-    "poison",
-    "ground",
-    "flying",
-    "psychic",
-    "bug",
-    "rock",
-    "ghost",
-    "dragon",
-    "dark",
-    "steel",
-    "fairy",
+    "normal", "fire", "water", "electric", "grass",
+    "ice", "fighting", "poison", "ground", "flying",
+    "psychic", "bug", "rock", "ghost","dragon",
+    "dark", "steel", "fairy",
   ];
   typeClasses.forEach((typeClass) => cardElement.classList.remove(typeClass));
 }
@@ -379,19 +349,12 @@ function goBack(){
     goButton.style.display='none';
     displayPokemon();
 }
-// function toggleButtons() {
-//     // 1. Holen der Buttons
-//     const loadMoreButton = document.getElementById('load-more');
-//     const goBackButton = document.getElementById('go-back');
-    
-//     // 2. Überprüfen des aktuellen Zustands des 'load-more' Buttons
-//     if (loadMoreButton.style.display === 'flex') {
-//         // 3. Ändern der Zustände, wenn 'display' bereits 'flex' ist
-//         loadMoreButton.style.display = 'none';
-//         goBackButton.style.display = 'flex';
-//     } else {
-//         // 4. Ändern der Zustände, wenn 'display' nicht 'flex' ist
-//         loadMoreButton.style.display = 'flex';
-//         goBackButton.style.display = 'none';
-//     }
-// }
+
+async function goToNextPokemon(pokemonDetails){
+  const next = pokemonDetails.id + 1;
+  console.log(`pokemonDetails.${next}`);
+  openPopup(`pokemonDetails.${next}`)
+}
+
+{/* <img id="prev-pokemon" class="arrow-prev-next" src="./img/chevron_left.svg" alt="arrow to the Left">
+<img id="next-pokemon" class="arrow-prev-next" src="./img/chevron_right.svg" alt="arrow to the Right"> */}

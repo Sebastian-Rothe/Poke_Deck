@@ -6,13 +6,15 @@ function generateCardHTML(pokemonDetails) {
             <img src="/img/icons/${type}.svg" class="type-icon" alt="${type}">
         </div>`
     ).join(' ');
-
     const card = document.createElement('div');
     card.className = 'card pokemon-card';
-
     setPokemonTypeClass(card, pokemonDetails);
+    card.innerHTML = cardHTML(pokemonDetails, typeIcons);
+    return card;
+}
 
-    card.innerHTML = `
+function cardHTML(pokemonDetails, typeIcons){
+    return`
         <div class="headline">
             <h2 id="nameOfPokemon">${pokemonDetails.name}</h2>
             <span class="indexDisplay">#${pokemonDetails.id}</span>
@@ -20,10 +22,7 @@ function generateCardHTML(pokemonDetails) {
         <img class="pokeImg" src="${pokemonDetails.sprites.other['official-artwork'].front_default}" alt="${pokemonDetails.name}">
         <div class="footerOfCard">
             <div>${typeIcons}</div>
-        </div>
-    `;
-
-    return card;
+        </div>`;
 }
 
 function setPokemonTypeClass(cardElement, pokemonDetails) {

@@ -40,6 +40,23 @@ button:active {
   box-shadow: 0 5px #666; 
   transform: translateY(4px); 
 }
+.icon-container {
+  display: inline-flex;
+  border: 1px solid rgb(111, 111, 111);
+  border-radius: 100%;
+  height: 38px; 
+  width: 38px;  
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: none !important; 
+}
+.icon-container img {
+  height: 32px; 
+  width: 32px; 
+  object-fit: contain; 
+}
 .content {
   display: flex;
   justify-content: center;
@@ -59,6 +76,23 @@ button:active {
 }
 .align-head {
   padding: 0 24px;
+}
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+.search-container input {
+  padding: 10px 40px 10px 10px;
+  font-size: 16px;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  height: 20px;
+  color: white;
 }
 #search{
   background: none;
@@ -155,7 +189,6 @@ span {
   max-height: 250px;
   min-height: 200px;
 }
-
 
 /* bg animation */
 body {
