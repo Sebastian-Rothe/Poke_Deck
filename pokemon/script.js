@@ -1,8 +1,9 @@
 const baseUrl = "https://pokeapi.co/api/v2/pokemon";
 let allPokemons = [];
+let currentPokemon= [];
 let offset = 0;
 const limit = 24;
-const searchButton = document.getElementById("search-button");
+
 
 function init() {
   displayPokemon();
@@ -41,7 +42,6 @@ async function displayPokemon() {
   setupCardClickListeners(); 
 }
 
- 
 async function searchPokemon() {
   let input = document.getElementById("search");
   

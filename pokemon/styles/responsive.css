@@ -1,0 +1,92 @@
+.navbar{
+
+}
+.align-head{
+
+}
+.pokeBall-align{
+
+}
+.pokedex-head{
+
+}
+
+@media (max-width: 704px) {
+    .pokeBall-align{
+        height: 60px;
+    }
+    .pokedex-head{
+        font-size: 40px;
+    }
+}
+@media (max-width: 600px) {
+    .navbar{
+        justify-content: center;
+        flex-direction: column;
+        height: 120px;
+    }
+    .pokeBall-align{
+        height: 40px;
+    }
+    .content{
+        margin-top: 128px;
+    }
+    #search{
+        height: 16px;
+    }
+}
+@media (max-width: 480px) {
+    .pokemon-popup-content{
+
+    }
+    
+    #popup-image{
+        height: 200px;
+        width: 200px;
+    }
+    .align-popup-img{
+        justify-content: space-between;
+    }
+    .arrow-prev-next{
+        height: 60px;
+    }
+    #popup-name{
+        font-size: 44px;
+    }
+    .moves-section{
+        max-height: 250px;
+    }
+    .select-button{
+        font-size: 12px;
+    }
+    .evolution-pokemon img{
+        height: 80px;
+    }
+    .evolution-arrow{
+        margin-bottom: 16px;
+    }
+    .evolution-pokemon p{
+        font-size: 14px;
+        padding-left: 2px;
+    }
+    .close-button{
+        display: block;
+    }
+}
+@media (max-width: 360px) {
+    .pokemon-popup-content{
+        max-width: 96%;
+    }
+    #popup-image{
+        height: 160px;
+        width: 160px;
+    }
+    .select-button{
+        padding: 8px 12px;
+    }
+    .moves-section{
+        max-height: 300px;
+    }
+}
+
+

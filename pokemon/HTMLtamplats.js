@@ -31,6 +31,11 @@ function popUpEventListener(popup){
         }
     });
 }
+function closePopUp(){
+    const popup = document.getElementById('pokemon-popup');
+    popup.style.display = "none"; 
+    document.body.style.overflow = "auto";
+}
 
 function setEventListener(pokemonDetails){
     document
@@ -83,7 +88,8 @@ async function goToNextPokemon(pokemonDetails) {
 function generatePopUpHeadHTML(pokemonDetails) {
     return `
         <div class="pokemon-card-header">
-            <div class="popup-header">
+        <div class="popup-header">
+        <img class="close-button" src="./img/close.svg" alt="close-button" onclick="closePopUp()">
                 <h2 id="popup-name">${pokemonDetails.name}</h2>
             </div>
             <div class="align-popup-img">
@@ -152,7 +158,7 @@ function showStats(pokemonDetails) {
                 <li class="stat-item">
                     <span class="stat-name">${formatStatName(statInfo.stat.name)}:</span>
                     <div class="stat-bar">
-                        <div class="stat-bar-fill" style="width: ${statInfo.base_stat / 1.2}%;"></div>
+                        <div class="stat-bar-fill" style="width: ${statInfo.base_stat / 1.3}%;"></div>
                     </div>
                     <span class="stat-value">${statInfo.base_stat}</span>
                 </li>`).join('')}
