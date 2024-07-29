@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/popup-style.css">
+    <link rel="stylesheet" href="./styles/types.css">
+    <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/icons/favicon_io/favicon.ico">
+</head>
+<body onload="init()">
+    <nav class="navbar">
+        <div class="logo align-head">
+            <img class="pokeBall-align" src="./img/pokeBall.png" alt="pokeBall">
+            <h1 class="pokedex-head">pokédex</h1>
+        </div>
+        <div class="search align-head">
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search for Pokémon...">
+                <img class="search-icon" src="./img/search.svg" alt="search-icon">
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div id="pokemon-list"></div>
+        <button id="load-more">load more</button>
+        <button id="go-back" onclick="goBack()">Go Back</button>
+    </div>
+    <div id="pokemon-popup" class="pokemon-popup">
+        <div class="pokemon-popup-content">
+            <div id="pokemon-card-popup" class="pokemon-card-popup">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="HTMLtamplats.js"></script>
+</body>
+</html>
