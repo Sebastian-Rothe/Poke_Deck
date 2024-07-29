@@ -13,7 +13,6 @@ body {
 .logo{
   display: flex;
   align-items: center;
-   
 }
 button {
   background-color: rgb(255, 0, 0); 

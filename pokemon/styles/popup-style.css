@@ -136,8 +136,6 @@
 .stats-section ul{
     padding-left: 0px;
 }
-
-
 .evolution-section{
     padding: 0px 20px 20px 20px;
     display: flex;
@@ -160,8 +158,6 @@
     margin: 0;
     padding-left: 12px;
 }
-
-
 .moves-section {
     padding: 0px 20px 20px 20px;
     overflow-y: auto;
@@ -189,8 +185,6 @@
 .moves-section p{
     margin: 4px 0;
 }
-
- 
 .arrow-prev-next{
     height: 80px;
 }
@@ -202,12 +196,10 @@
     display: flex;
     align-items: center;
 }
-
 .arrow-disabled {
     opacity: 0.5;
     pointer-events: none;
 }
-
 .close-button{
     display: none;
     height: 40px;
@@ -216,7 +208,6 @@
     top: 2px;
     z-index: 1001;
 }
-
 .close-button:hover{
     cursor: pointer;
     transform: scale(1.4);

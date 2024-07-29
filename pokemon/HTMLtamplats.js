@@ -31,6 +31,7 @@ function popUpEventListener(popup){
         }
     });
 }
+
 function closePopUp(){
     const popup = document.getElementById('pokemon-popup');
     popup.style.display = "none"; 
