@@ -2,6 +2,7 @@ body {
   font-family: "Raleway";
   max-width: 1920px;
   text-transform: capitalize;
+  min-height: 100vh;
 }
 .pokeBall-align{
   height: 80px;
@@ -192,9 +193,9 @@ span {
 /* bg animation */
 body {
   margin: 0;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   background: linear-gradient(
     45deg,
     #a8a77a,
@@ -235,4 +236,20 @@ body {
   100% {
     background-position: 0% 0%;
   }
+}
+
+
+footer{
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  height: 100px;
+  width: 100%;
+  max-width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-link:hover{
+color: white;
 }
