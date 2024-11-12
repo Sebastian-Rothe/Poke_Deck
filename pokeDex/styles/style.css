@@ -2,7 +2,6 @@ body {
   font-family: "Raleway";
   max-width: 1920px;
   text-transform: capitalize;
-  min-height: 100vh;
 }
 .pokeBall-align{
   height: 80px;
@@ -59,10 +58,11 @@ button:active {
 }
 .content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   margin-top: 100px;
+  min-height: calc(100vh - 100px);
 }
 .navbar {
   position: absolute;
