@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Entdecke die Welt der Pokémon mit Pokédex! Durchsuche, filtere und finde umfassende Informationen zu allen Pokémon, inklusive ihrer Typen, Fähigkeiten und Evolutionen. Perfekt für Pokémon-Fans und Sammler."
+    />
+
     <title>Pokédex</title>
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/popup-style.css">
-    <link rel="stylesheet" href="./styles/types.css">
-    <link rel="stylesheet" href="./styles/fonts.css">
-    <link rel="stylesheet" href="./styles/responsive.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/icons/favicon_io/favicon.ico">
-</head>
-<body onload="init()">
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/popup-style.css" />
+    <link rel="stylesheet" href="./styles/types.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./img/icons/favicon_io/favicon.ico"
+    />
+  </head>
+  <body onload="init()">
     <nav class="navbar">
-        <div class="logo align-head">
-            <img class="pokeBall-align" src="./img/pokeBall.png" alt="pokeBall">
-            <h1 class="pokedex-head">pokédex</h1>
+      <div class="logo align-head">
+        <img class="pokeBall-align" src="./img/pokeBall.png" alt="pokeBall" />
+        <h1 class="pokedex-head">pokédex</h1>
+      </div>
+      <div class="search align-head">
+        <div class="search-container">
+          <input
+            type="text"
+            id="search"
+            placeholder="Search for Pokémon..."
+            onkeyup="searchPokemon()"
+          />
+          <img class="search-icon" src="./img/search.svg" alt="search-icon" />
         </div>
-        <div class="search align-head">
-            <div class="search-container">
-                <input type="text" id="search" placeholder="Search for Pokémon..." onkeyup="searchPokemon()">
-                <img class="search-icon" src="./img/search.svg" alt="search-icon">
-            </div>
-        </div>
+      </div>
     </nav>
     <div class="content">
-        <div id="pokemon-list"></div>
-        <button id="load-more">load more</button>
-        <button id="go-back" onclick="goBack()">Go Back</button>
+      <div id="pokemon-list"></div>
+      <button id="load-more">load more</button>
+      <button id="go-back" onclick="goBack()">Go Back</button>
     </div>
     <footer>
-        <div class="footer">
-            <a class="footer-link" href="https://sebastian-rothe.com/imprint">Impressum</a>
-            <a class="footer-link" href="https://sebastian-rothe.com/privacy-policy">Datenschutzerklärung</a>
-        </div>
+      <div class="footer">
+        <a class="footer-link" href="https://sebastian-rothe.com/imprint"
+          >Impressum</a
+        >
+        <a class="footer-link" href="https://sebastian-rothe.com/privacy-policy"
+          >Datenschutzerklärung</a
+        >
+      </div>
     </footer>
     <div id="pokemon-popup" class="pokemon-popup">
-        <div class="pokemon-popup-content">
-            <div id="pokemon-card-popup" class="pokemon-card-popup">
-            </div>
-        </div>
+      <div class="pokemon-popup-content">
+        <div id="pokemon-card-popup" class="pokemon-card-popup"></div>
+      </div>
     </div>
     <script src="script.js"></script>
     <script src="HTMLtamplats.js"></script>
-</body>
+  </body>
 </html>
